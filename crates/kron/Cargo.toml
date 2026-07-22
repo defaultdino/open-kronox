@@ -1,0 +1,20 @@
+[package]
+name = "kron"
+version.workspace = true
+edition.workspace = true
+publish.workspace = true
+
+[dependencies]
+chrono.workspace = true
+chrono-tz.workspace = true
+data-model.workspace = true
+kronox.workspace = true
+rocket = { workspace = true, features = ["json"] }
+rustls.workspace = true
+serde.workspace = true
+serde_json.workspace = true
+sqlx.workspace = true
+storage-pg.workspace = true
+
+[lints]
+workspace = true

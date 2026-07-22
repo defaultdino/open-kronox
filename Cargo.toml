@@ -1,0 +1,136 @@
+[workspace]
+resolver = "2"
+members = ["crates/*"]
+
+package.version = "1.0.1"
+package.edition = "2024"
+package.publish = false
+
+[workspace.dependencies.base64]
+version = "0.22"
+
+[workspace.dependencies.chrono]
+version = "0.4"
+default-features = false
+features = ["clock", "serde", "std"]
+
+[workspace.dependencies.chrono-tz]
+version = "0.10"
+
+[workspace.dependencies.data-model]
+path = "crates/data-model"
+
+[workspace.dependencies.headers]
+version = "0.4.1"
+
+[workspace.dependencies.http]
+version = "1.3.1"
+
+[workspace.dependencies.http-body]
+version = "1.0.1"
+
+[workspace.dependencies.http-body-util]
+version = "0.1.3"
+
+[workspace.dependencies.hyper]
+version = "1.7.0"
+features = ["client", "http1", "http2", "server"]
+
+[workspace.dependencies.kronox]
+path = "crates/kronox"
+
+[workspace.dependencies.quick-xml]
+version = "0.41.0"
+features = ["serialize"]
+
+[workspace.dependencies.rand]
+version = "0.8"
+
+[workspace.dependencies.regex]
+version = "1.12.2"
+
+[workspace.dependencies.reqwest]
+version = "0.13.4"
+default-features = false
+features = [
+  "charset",
+  "form",
+  "query",
+  "http2",
+  "json",
+  "rustls-no-provider",
+  "socks",
+  "system-proxy",
+]
+
+[workspace.dependencies.rocket]
+version = "0.5.1"
+
+[workspace.dependencies.rustls]
+version = "0.23"
+default-features = false
+features = ["ring"]
+
+[workspace.dependencies.scraper]
+version = "0.27.0"
+
+[workspace.dependencies.sea-query-sqlx]
+version = "0.8.1"
+features = [
+  "postgres-array",
+  "sqlx-postgres",
+  "with-chrono",
+  "with-uuid",
+]
+
+[workspace.dependencies.serde]
+version = "1.0.229"
+features = ["derive"]
+
+[workspace.dependencies.serde_json]
+version = "1"
+
+[workspace.dependencies.sqlx]
+version = "0.8"
+default-features = false
+features = [
+  "chrono",
+  "json",
+  "macros",
+  "migrate",
+  "postgres",
+  "runtime-tokio-rustls",
+  "uuid"
+]
+
+[workspace.dependencies.storage-pg]
+path = "crates/storage-pg"
+
+[workspace.dependencies.thiserror]
+version = "2"
+
+[workspace.dependencies.ts-rs]
+version = "12.0.1"
+features = ["chrono-impl"]
+
+[workspace.dependencies.url]
+version = "2.5"
+
+[workspace.dependencies.uuid]
+version = "1"
+features = ["v4"]
+
+[workspace.lints.clippy]
+all = { level = "deny", priority = -1 }
+allow_attributes = "deny"
+let_and_return = "allow"
+pedantic = { level = "warn", priority = -1 }
+str_to_string = "deny"
+too_many_lines = "allow"
+uninlined_format_args = "allow"
+
+[workspace.lints.rust]
+unsafe_code = "deny"
+
+[workspace.lints.rustdoc]
+broken_intra_doc_links = "deny"

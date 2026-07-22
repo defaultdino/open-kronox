@@ -1,0 +1,46 @@
+{
+  "schools": {
+    "hkr": {
+      "id": "hkr",
+      "name": "Högskolan Kristianstad",
+      "domain": "hkr.se",
+      "urls": ["https://kronox.hkr.se", "https://schema.hkr.se"]
+    },
+    "oru": {
+      "id": "oru",
+      "name": "Örebro universitet",
+      "domain": "oru.se",
+      "urls": ["https://schema.oru.se", "https://kronox.oru.se"]
+    },
+    "ltu": {
+      "id": "ltu",
+      "name": "Luleå tekniska universitet",
+      "domain": "ltu.se",
+      "urls": ["https://schema.ltu.se"]
+    },
+    "hig": {
+      "id": "hig",
+      "name": "Högskolan i Gävle",
+      "domain": "hig.se",
+      "urls": ["https://schema.hig.se", "https://kronox.hig.se"]
+    },
+    "hv": {
+      "id": "hv",
+      "name": "Högskolan Väst",
+      "domain": "hv.se",
+      "urls": ["https://schema.hv.se", "https://kronox.hv.se"]
+    },
+    "hb": {
+      "id": "hb",
+      "name": "Högskolan i Borås",
+      "domain": "hb.se",
+      "urls": ["https://schema.hb.se", "https://kronox.hb.se"]
+    },
+    "mdh": {
+      "id": "mdh",
+      "name": "Mälardalens universitet",
+      "domain": "mdh.se",
+      "urls": ["https://schema.mdh.se", "https://webbschema.mdh.se"]
+    }
+  }
+}
