@@ -25,6 +25,16 @@ async fn healthz(deps: &State<Deps>) -> Result<&'static str, Status> {
     }
 }
 
+#[catch(404)]
+fn not_found() -> &'static str {
+    "404 - Not Found"
+}
+
+#[catch(500)]
+fn internal_error() -> &'static str {
+    "500 - Internal Server Error"
+}
+
 #[rocket::main]
 async fn main() -> Result<(), Box<rocket::Error>> {
     rustls::crypto::ring::default_provider()
@@ -51,6 +61,7 @@ async fn main() -> Result<(), Box<rocket::Error>> {
 
     let mut server = rocket::custom(figment)
         .manage(deps)
+        .register("/", catchers![not_found, internal_error])
         .mount("/", routes![healthz])
         .mount(
             "/api/v1",
