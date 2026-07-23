@@ -20,7 +20,7 @@ pub struct Client {
 }
 
 impl Client {
-    /// Build a client with the browser-like headers KronoX expects.
+    /// Build a client with the browser-like headers `KronoX` expects.
     ///
     /// # Errors
     /// Returns an error if the underlying TLS/HTTP client cannot be built.
@@ -49,7 +49,7 @@ impl Client {
     /// `start_date` of `None` means "today" (`startDatum=idag`).
     ///
     /// # Errors
-    /// Returns an error if the request fails, KronoX returns a non-success
+    /// Returns an error if the request fails, `KronoX` returns a non-success
     /// status, or the response XML cannot be parsed.
     pub async fn fetch_events(
         &self,
@@ -80,7 +80,7 @@ impl Client {
     /// Free-text programme search.
     ///
     /// # Errors
-    /// Returns an error if the request fails or KronoX returns a non-success status.
+    /// Returns an error if the request fails or `KronoX` returns a non-success status.
     pub async fn search_programmes(
         &self,
         base_url: &str,

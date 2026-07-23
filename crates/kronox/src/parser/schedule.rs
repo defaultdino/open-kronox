@@ -18,7 +18,7 @@ static HTML_TAG_RE: LazyLock<Regex> = LazyLock::new(|| Regex::new(r"<.*?>").expe
 /// Parse the schedule document, dropping any entry whose timestamps don't parse.
 ///
 /// # Errors
-/// Returns [`Error::Xml`] if the document is not valid KronoX schedule XML.
+/// Returns [`Error::Xml`] if the document is not valid `KronoX` schedule XML.
 pub fn parse_schedule_xml(
     school_code: &str,
     schedule_ids: &[String],
@@ -126,8 +126,8 @@ fn resolve_resources(
 ) -> Resources {
     let mut resources = Resources::default();
     for node in &post.resource_row.resource_nodes {
-        let id = clean_resource_id(&node.resource_id);
-        match node.resource_type_id.as_str() {
+        let id = clean_resource_id(&node.id);
+        match node.type_id.as_str() {
             "UTB_KURSINSTANS_GRUPPER" => {
                 if let Some(name) = courses.get(&id) {
                     resources.course_name = name.clone();
@@ -145,12 +145,12 @@ fn resolve_resources(
                 }
             }
             "UTB_PROGRAMINSTANS_KLASSER" => {
-                if node.resource_id_url_encoded.is_empty() {
+                if node.url_encoded_id.is_empty() {
                     resources.schedule_ids.push(id);
                 } else {
                     resources
                         .schedule_ids
-                        .push(node.resource_id_url_encoded.clone());
+                        .push(node.url_encoded_id.clone());
                 }
             }
             _ => {}

@@ -1,6 +1,6 @@
 //! The schedule data path.
 //!
-//! Without a database, every request scrapes KronoX live. With a db, reads are
+//! Without a database, every request scrapes `KronoX` live. With a db, reads are
 //! served from the Postgres cache
 
 use chrono::{Duration, Utc};

@@ -1,7 +1,7 @@
 use chrono::{DateTime, Utc};
 use sqlx::{PgPool, Row};
 
-/// When a schedule was last refreshed from KronoX, if ever.
+/// When a schedule was last refreshed from `KronoX`, if ever.
 ///
 /// # Errors
 /// Returns any error from the query.

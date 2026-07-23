@@ -34,11 +34,11 @@ pub struct ResourceRow {
 #[derive(Debug, Deserialize)]
 pub struct ResourceNode {
     #[serde(rename = "@resursTypId")]
-    pub resource_type_id: String,
+    pub type_id: String,
     #[serde(rename = "resursId")]
-    pub resource_id: String,
+    pub id: String,
     #[serde(rename = "resursIdURLEncoded")]
-    pub resource_id_url_encoded: String,
+    pub url_encoded_id: String,
 }
 
 #[derive(Debug, Deserialize)]

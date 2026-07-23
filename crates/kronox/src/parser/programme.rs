@@ -8,7 +8,7 @@ use scraper::{Html, Selector};
 static RESURSER_RE: LazyLock<Regex> =
     LazyLock::new(|| Regex::new(r"resurser=(.*)$").expect("valid regex"));
 
-/// Extract programmes from a KronoX programme-search results page.
+/// Extract programmes from a `KronoX` programme-search results page.
 ///
 /// Each result is an `<a target="_blank">` whose `href` carries the schedule id
 /// in a `resurser=` query parameter and whose text is `"<title>, <subtitle>"`.

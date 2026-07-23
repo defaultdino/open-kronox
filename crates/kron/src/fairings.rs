@@ -5,7 +5,7 @@ use rocket::fairing::{self, AdHoc};
 use crate::service;
 use crate::state::Deps;
 
-const BACKGROUND_REFRESH: Duration = Duration::from_secs(6 * 60 * 60);
+const BACKGROUND_REFRESH: Duration = Duration::from_hours(6);
 
 #[must_use]
 pub fn migrations() -> AdHoc {
