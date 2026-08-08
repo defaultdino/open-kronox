@@ -148,9 +148,7 @@ fn resolve_resources(
                 if node.url_encoded_id.is_empty() {
                     resources.schedule_ids.push(id);
                 } else {
-                    resources
-                        .schedule_ids
-                        .push(node.url_encoded_id.clone());
+                    resources.schedule_ids.push(node.url_encoded_id.clone());
                 }
             }
             _ => {}

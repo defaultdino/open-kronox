@@ -12,6 +12,8 @@ static RESURSER_RE: LazyLock<Regex> =
 ///
 /// Each result is an `<a target="_blank">` whose `href` carries the schedule id
 /// in a `resurser=` query parameter and whose text is `"<title>, <subtitle>"`.
+/// The page's navigation links ("Avancerad sök", "Schemaguide A-Ö") are plain
+/// anchors without `target="_blank"`, so the selector already excludes them.
 #[must_use]
 pub fn parse_programmes(html: &str) -> Vec<Programme> {
     let selector = Selector::parse("a[target='_blank']").expect("valid selector");
@@ -19,7 +21,6 @@ pub fn parse_programmes(html: &str) -> Vec<Programme> {
 
     document
         .select(&selector)
-        .skip(2)
         .filter_map(parse_programme_link)
         .collect()
 }
@@ -51,16 +52,29 @@ mod tests {
     use super::parse_programmes;
 
     #[test]
-    fn skips_first_two_navigation_links() {
+    fn ignores_navigation_links_without_target_blank() {
         let html = r#"
-          <a target="_blank" href="?resurser=skip1">A, x</a>
-          <a target="_blank" href="?resurser=skip2">B, y</a>
+          <a href="avanceratschema.jsp">Avancerad sök</a>
+          <a href="ao.jsp">Schemaguide A-Ö</a>
           <a target="_blank" href="?resurser=p.REAL">Data, Datateknik Datateknik</a>
         "#;
         let programmes = parse_programmes(html);
         assert_eq!(programmes.len(), 1);
         assert_eq!(programmes[0].id, "p.REAL");
         assert_eq!(programmes[0].title, "Data");
-        assert_eq!(programmes[0].subtitle, "Datateknik"); // duplicate words collapsed
+        assert_eq!(programmes[0].subtitle, "Datateknik");
+    }
+
+    #[test]
+    fn returns_all_results_for_a_two_hit_query() {
+        let html = r#"
+          <a href="avanceratschema.jsp">Avancerad sök</a>
+          <a target="_blank" href="?resurser=s.SVEMAR">SVEMAR, Margaretha Svensson</a>
+          <a target="_blank" href="?resurser=s.VEM">VEM, Braco Veletanlic</a>
+        "#;
+        let programmes = parse_programmes(html);
+        assert_eq!(programmes.len(), 2);
+        assert_eq!(programmes[0].id, "s.SVEMAR");
+        assert_eq!(programmes[1].id, "s.VEM");
     }
 }
