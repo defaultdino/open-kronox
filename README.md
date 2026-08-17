@@ -20,6 +20,15 @@ cp schools.example.json schools.json
 KRONOX_SCHOOLS_FILE=schools.json cargo run -p kron
 ```
 
+If you want to set the application log level feel free to do so using the `LOG_LEVEL` environment variable, where applicable values include `info`, `debug`, `warn`, `off`, `error` and `trace`.
+
+```
+export KRONOX_SCHOOLS_FILE=schools.json
+export LOG_LEVEL=debug
+
+cargo run -p kron
+```
+
 Then:
 
 ```sh
