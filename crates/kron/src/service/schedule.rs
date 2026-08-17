@@ -88,7 +88,11 @@ async fn fetch_with_failover(
             .fetch_events(url, school_code, schedule_ids, None)
             .await
         {
-            Ok(events) => return Ok(events),
+            Ok(events) => {
+                let events_len = events.len();
+                rocket::info!("fetched {events_len} events from {url}");
+                return Ok(events);
+            }
             Err(error) => rocket::warn!("kronox fetch failed for {url}: {error}"),
         }
     }

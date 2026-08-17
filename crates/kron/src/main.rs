@@ -57,6 +57,7 @@ async fn main() -> Result<(), Box<rocket::Error>> {
 
     let figment = rocket::Config::figment()
         .merge(("port", config.port))
+        .merge(("log_level", config.log_level))
         .merge(("address", "0.0.0.0"));
 
     let mut server = rocket::custom(figment)

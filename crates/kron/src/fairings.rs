@@ -12,6 +12,7 @@ pub fn migrations() -> AdHoc {
     AdHoc::try_on_ignite("migrations", |rocket| Box::pin(run_migrations(rocket)))
 }
 
+#[expect(clippy::result_large_err)]
 async fn run_migrations(rocket: rocket::Rocket<rocket::Build>) -> fairing::Result {
     let deps = rocket.state::<Deps>().expect("Deps managed before ignite");
     let pool = deps
