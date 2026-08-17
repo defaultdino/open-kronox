@@ -17,7 +17,7 @@ pub async fn search(
     for url in &school_config.urls {
         match deps.client.search_programmes(url, query).await {
             Ok(programmes) => return Ok(programmes),
-            Err(error) => rocket::warn!("kronox programme search failed for {url}: {error}"),
+            Err(error) => log::error!("kronox programme search failed for {url}: {error}"),
         }
     }
     Err(ServiceError::Upstream)

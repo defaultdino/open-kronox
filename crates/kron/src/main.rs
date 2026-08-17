@@ -42,6 +42,11 @@ async fn main() -> Result<(), Box<rocket::Error>> {
         .expect("failed to install the default rustls crypto provider");
 
     let config = Config::from_env();
+
+    env_logger::Builder::new()
+        .filter_level(config.log_level)
+        .init();
+
     let schools = kronox::SchoolsConfig::load().expect("failed to load schools config");
     let client = kronox::Client::new().expect("failed to build kronox HTTP client");
 
@@ -57,7 +62,6 @@ async fn main() -> Result<(), Box<rocket::Error>> {
 
     let figment = rocket::Config::figment()
         .merge(("port", config.port))
-        .merge(("log_level", config.log_level))
         .merge(("address", "0.0.0.0"));
 
     let mut server = rocket::custom(figment)

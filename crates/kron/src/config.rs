@@ -1,4 +1,3 @@
-use rocket::config::LogLevel;
 use sqlx::PgPool;
 use sqlx::postgres::PgPoolOptions;
 
@@ -7,7 +6,7 @@ const DEFAULT_PORT: u16 = 7077;
 pub struct Config {
     pub port: u16,
     pub database_url: Option<String>, // we don't need one, but it will offer cache and background refreshes
-    pub log_level: LogLevel,
+    pub log_level: log::LevelFilter,
 }
 
 impl Config {
@@ -22,11 +21,12 @@ impl Config {
             .map(|url| url.trim_end_matches('/').to_owned());
         let log_level = std::env::var("LOG_LEVEL")
             .ok()
-            .unwrap_or_else(|| "debug".to_owned());
+            .and_then(|value| value.parse().ok())
+            .unwrap_or(log::LevelFilter::Debug);
         Self {
             port,
             database_url,
-            log_level: Self::map_log_level(log_level.as_str()),
+            log_level,
         }
     }
 
@@ -41,14 +41,5 @@ impl Config {
                 .connect_lazy(url)
                 .expect("DATABASE_URL is a valid Postgres connection string")
         })
-    }
-
-    fn map_log_level(log_level: &str) -> LogLevel {
-        match log_level {
-            "critical" => LogLevel::Critical,
-            "debug" => LogLevel::Debug,
-            "off" => LogLevel::Off,
-            _ => LogLevel::Normal,
-        }
     }
 }

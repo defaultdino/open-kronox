@@ -90,10 +90,10 @@ async fn fetch_with_failover(
         {
             Ok(events) => {
                 let events_len = events.len();
-                rocket::info!("fetched {events_len} events from {url}");
+                log::info!("fetched {events_len} events from {url}");
                 return Ok(events);
             }
-            Err(error) => rocket::warn!("kronox fetch failed for {url}: {error}"),
+            Err(error) => log::error!("kronox fetch failed for {url}: {error}"),
         }
     }
     Err(ServiceError::Upstream)
