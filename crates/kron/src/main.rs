@@ -8,10 +8,10 @@ mod routes;
 mod service;
 mod state;
 
-use rocket::{State, http::Status};
-
 use crate::config::Config;
 use crate::state::Deps;
+use rocket::{State, http::Status};
+use std::io::Write;
 
 #[get("/healthz")]
 async fn healthz(deps: &State<Deps>) -> Result<&'static str, Status> {
@@ -45,6 +45,16 @@ async fn main() -> Result<(), Box<rocket::Error>> {
 
     env_logger::Builder::new()
         .filter_level(config.log_level)
+        .format(|buf, record| {
+            writeln!(
+                buf,
+                "time={} level={} target={} msg=\"{}\"",
+                chrono::Utc::now().to_rfc3339(),
+                record.level(),
+                record.target(),
+                record.args()
+            )
+        })
         .init();
 
     let schools = kronox::SchoolsConfig::load().expect("failed to load schools config");
